@@ -1,0 +1,6 @@
+#!/bin/sh
+VARS='$DB_PASSWORD'
+CONFDIR=/etc/zabbix
+envsubst "$VARS" < "$CONFDIR/zabbix_server.conf.os" > "$CONFDIR/zabbix_server.conf"
+# Bad but can't make it run in the foreground
+zabbix_server -c "$CONFDIR/zabbix_server.conf" && sleep 5 && tail -f /var/log/zabbix/zabbix_server.log
